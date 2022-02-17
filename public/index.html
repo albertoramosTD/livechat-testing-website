@@ -39,5 +39,39 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+     <!-- Start of Talkdesk Code -->
+     <script>
+      var webchat;
+      ((window, document, node, props, configs) => {
+        if (window.TalkdeskChatSDK) {
+          console.error("TalkdeskChatSDK already included");
+          return;
+        }
+        var divContainer = document.createElement("div");
+        divContainer.id = node;
+        document.body.appendChild(divContainer);
+        var currentDate = new Date().getTime();
+        var src = `https://talkdeskchatsdk.svc.talkdeskqa.com/talkdeskchatsdk.js?t=` + currentDate;
+        var script = document.createElement("script");
+        var firstScriptTag = document.getElementsByTagName("script")[0];
+        script.type = "text/javascript";
+        script.charset = "UTF-8";
+        script.id = "tdwebchatscript";
+        script.src = src;
+        script.async = true;
+        firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
+        script.onload = () => {
+          webchat = TalkdeskChatSDK(node, props);
+          webchat.init(configs);
+        };
+      })(
+        window,
+        document,
+        "tdWebchat",
+        { flowId: "156e99d4532b4a8389a123ef727b47c6", accountId: "" },
+        { enableEmoji: true, enableUserInput: true }
+      );
+    </script>
+  <!-- End of Talkdesk Code -->
   </body>
 </html>

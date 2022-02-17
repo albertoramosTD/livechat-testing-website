@@ -5,11 +5,18 @@ import { ConfigurationList } from "./ConfigurationList";
 
 export const CustomPanel = () => {
     const[configurationList, setConfigurationList] = useState([]);
+    const [selectedConfig, setSelectedConfig] = useState({})
+
+    const addConfiguration = (newConfiguration) => {
+        setConfigurationList([...configurationList, newConfiguration])
+    }
 
     return (
         <div className="custom-panel">
-            <CreateConfiguration existingList={configurationList} create={setConfigurationList} />
-            <ConfigurationList list={configurationList}/>
+            <CreateConfiguration create={addConfiguration} />
+            <ConfigurationList 
+                list={configurationList}
+            />
         </div>
     )
 }

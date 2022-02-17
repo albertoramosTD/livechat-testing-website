@@ -1,27 +1,59 @@
 import React, {useState} from 'react'
 import '../styles/CreateConfiguration.scss'
+import Select from 'react-select'
+
+
+const envOptions = [
+    { value: 'stg', label: 'stg' },
+    { value: 'qa', label: 'qa' },
+    { value: 'prd', label: 'prd' }
+]
 
 export const CreateConfiguration = (props) => {
     const [name, setName]= useState("");
     const [appId, setAppId]= useState("");
-    const [environment, setEnvironment]= useState("");
+    const [environment, setEnvironment]= useState(envOptions[0].value);
 
     const clearValues = () => {
         setName("")
         setAppId("")
-        setEnvironment("")
     }
 
+    // const validateConfiguration = () => {
+    //     if(name.length == 0){
+    //         console.log("Please fill the name")
+    //     }
+    //     if(appId.length == 0){
+    //         console.log("Please fill the appid")
+    //     }
+    //     if(environment.length == 0){
+    //         console.log("Please fill the env")
+    //     }
+    // }
+
     const addConfiguration = () => {
+        // validateConfiguration()
         const newConfiguration = {
             name: name,
             appId: appId,
-            environment: environment
+            environment: environment,
+            selected: false
         }
-        console.log(newConfiguration)
-        props.create([...props.existingList, newConfiguration])
+        props.create(newConfiguration)
         clearValues()
     }
+
+
+    const customSelectEnvStyles = {
+      option: (provided, state) => ({
+        ...provided,
+        background: state.isSelected ? 'linear-gradient(110deg, rgba(85, 101, 203, 1) 0%,rgba(160, 173, 254, 1) 100%)' : 'white',
+      }),
+    }
+
+    const onSelectEnvChange = (environment) => {
+       setEnvironment(environment.value)
+    };
 
     return(
         <div className="create-configuration">
@@ -37,9 +69,11 @@ export const CreateConfiguration = (props) => {
                 onChange={e=>setAppId(e.target.value)}
             />
             <p>Environment:</p>
-            <input
-                value={environment}
-                onChange={e=>setEnvironment(e.target.value)}
+            <Select 
+                options={envOptions} 
+                styles={customSelectEnvStyles}
+                defaultValue={envOptions[0]}
+                onChange={onSelectEnvChange}
             />
             <button className="custom-btn"  onClick={addConfiguration}>
                 <p>Create</p>
