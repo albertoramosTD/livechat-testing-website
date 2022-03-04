@@ -5,7 +5,7 @@ export const Configuration = ({name, appId, environment, selected, setSelectedCo
     const [isSelected, setIsSelected] = useState(selected)
 
     const updateConfig = () => {
-        setIsSelected(!isSelected)
+        setIsSelected()
     }
 
     const selectedStyle = isSelected ? {boxShadow: '0px 0px 5px 1px rgba(255,255,255,.8)'} : {}

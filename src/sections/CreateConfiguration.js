@@ -14,46 +14,64 @@ export const CreateConfiguration = (props) => {
     const [appId, setAppId]= useState("");
     const [environment, setEnvironment]= useState(envOptions[0].value);
 
+    const [nameError, setNameError]= useState(false);
+    const [appIdError, setAppIdError]= useState(false);
+
     const clearValues = () => {
         setName("")
         setAppId("")
     }
 
-    // const validateConfiguration = () => {
-    //     if(name.length == 0){
-    //         console.log("Please fill the name")
-    //     }
-    //     if(appId.length == 0){
-    //         console.log("Please fill the appid")
-    //     }
-    //     if(environment.length == 0){
-    //         console.log("Please fill the env")
-    //     }
-    // }
+    const validateConfiguration = () => {
+        let validation = true
 
-    const addConfiguration = () => {
-        // validateConfiguration()
-        const newConfiguration = {
-            name: name,
-            appId: appId,
-            environment: environment,
-            selected: false
+        if(name.length === 0) {
+            setNameError(true)
+            validation = false;
         }
-        props.create(newConfiguration)
-        clearValues()
+
+        if(appId.length === 0){
+            setAppIdError(true)
+            validation = false;
+        }
+
+        return validation;
     }
 
+    const addConfiguration = () => {
+        if(validateConfiguration()){
+            const newConfiguration = {
+                name: name,
+                appId: appId,
+                environment: environment,
+                selected: false
+            }
+            props.create(newConfiguration)
+            clearValues()
+        }
+    }
 
     const customSelectEnvStyles = {
-      option: (provided, state) => ({
-        ...provided,
-        background: state.isSelected ? 'linear-gradient(110deg, rgba(85, 101, 203, 1) 0%,rgba(160, 173, 254, 1) 100%)' : 'white',
-      }),
+        option: (provided, state) => ({
+            ...provided,
+            background: state.isSelected
+                ? 'linear-gradient(110deg, rgba(85, 101, 203, 1) 0%,rgba(160, 173, 254, 1) 100%)'
+                : 'white',
+        }),
     }
 
     const onSelectEnvChange = (environment) => {
-       setEnvironment(environment.value)
+        setEnvironment(environment.value)
     };
+
+    const updateName = (e) => {
+        setName(e.target.value)
+        setNameError(false)
+    }
+    const updateAppId = (e) => {
+        setAppId(e.target.value)
+        setAppIdError(false)
+    }
 
     return(
         <div className="create-configuration">
@@ -61,16 +79,18 @@ export const CreateConfiguration = (props) => {
             <p>Name:</p>
             <input
                 value={name}
-                onChange={e=>setName(e.target.value)}
+                onChange={updateName}
             />
+            {nameError ? <span  style={{color:'red'}}>The Name field is not valid</span> : <span></span>}
             <p>App ID:</p>
             <input
                 value={appId}
-                onChange={e=>setAppId(e.target.value)}
+                onChange={updateAppId}
             />
+            {appIdError ? <span style={{color:'red'}}>The AppID field is not valid</span> : <span></span>}
             <p>Environment:</p>
-            <Select 
-                options={envOptions} 
+            <Select
+                options={envOptions}
                 styles={customSelectEnvStyles}
                 defaultValue={envOptions[0]}
                 onChange={onSelectEnvChange}
@@ -81,3 +101,49 @@ export const CreateConfiguration = (props) => {
         </div>
     )
 }
+
+// const validateConfiguration = () => {
+//     setNameError("")
+//     setAppIdError("")
+//
+//     //let validation = false
+//
+//     if(name.length == 0){
+//         setNameError("Please fill the Name")
+//         console.log("Please fill the  Name")
+//     }
+//     if(appId.length == 0){
+//         setAppIdError("Please fill the App Id")
+//         console.log("Please fill the appid")
+//     }
+//     if(name.length > 0 && appId.length > 0 && environment.length > 0){
+//         validation = true
+//         console.log("Validation is good")
+//     }
+//
+//     console.log("First: " + validation)
+//     setValidationState(validation)
+//     console.log("Second: " + validationState)
+//
+// }
+//
+// const addConfiguration = () => {
+//     validateConfiguration()
+//     console.log(validationState)
+//
+//     if (validationState){
+//         console.log("Entrei aqui")
+//         const newConfiguration = {
+//             name: name,
+//             appId: appId,
+//             environment: environment,
+//             selected: false
+//         }
+//         props.create(newConfiguration)
+//
+//         console.log("E aqui")
+//
+//         clearValues()
+//         setValidationState(false)
+//     }
+// }
