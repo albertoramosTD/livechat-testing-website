@@ -2,14 +2,15 @@ import React from 'react'
 import '../styles/ConfigurationList.scss'
 import { Configuration } from '../components/Configuration'
 
-export const ConfigurationList = ({list, setSelectedConfiguration}) => {
+export const ConfigurationList = ({list, selectedConfig,setSelectedConfig}) => {
 
-    const configurationList = list.map(config => 
+    const configurationList = list.map(({name, appId, environment}) =>
         <Configuration 
-            name={config.name}
-            appId={config.appId}
-            environment={config.environment}
-            selected={config.selected}
+            name={name}
+            appId={appId}
+            environment={environment}
+            selectedConfig={selectedConfig}
+            setSelectedConfig={setSelectedConfig}
         />
     )
 

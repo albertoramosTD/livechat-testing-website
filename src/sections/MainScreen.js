@@ -1,13 +1,13 @@
 import React from 'react'
 import '../styles/MainScreen.scss'
 
-export const MainScreen = (props) => {
+export const MainScreen = ({selectedConfig}) => {
     
     return (
         <div className="main-screen">
-           <h2>Name: <h3>{props.selectedConfig.name}</h3></h2>
-           <h2>App ID: <h3>{props.selectedConfig.appId}</h3></h2>
-           <h2>Environment: <h3>{props.selectedConfig.environment}</h3></h2>
+           <h2>Name: <span>{selectedConfig.name}</span></h2>
+           <h2>App ID: <span>{selectedConfig.appId}</span></h2>
+           <h2>Environment: <span>{selectedConfig.environment}</span></h2>
         </div>
     )
 }

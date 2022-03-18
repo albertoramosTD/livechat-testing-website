@@ -43,8 +43,7 @@ export const CreateConfiguration = (props) => {
             const newConfiguration = {
                 name: name,
                 appId: appId,
-                environment: environment,
-                selected: false
+                environment: environment
             }
             props.create(newConfiguration)
             clearValues()
@@ -101,49 +100,3 @@ export const CreateConfiguration = (props) => {
         </div>
     )
 }
-
-// const validateConfiguration = () => {
-//     setNameError("")
-//     setAppIdError("")
-//
-//     //let validation = false
-//
-//     if(name.length == 0){
-//         setNameError("Please fill the Name")
-//         console.log("Please fill the  Name")
-//     }
-//     if(appId.length == 0){
-//         setAppIdError("Please fill the App Id")
-//         console.log("Please fill the appid")
-//     }
-//     if(name.length > 0 && appId.length > 0 && environment.length > 0){
-//         validation = true
-//         console.log("Validation is good")
-//     }
-//
-//     console.log("First: " + validation)
-//     setValidationState(validation)
-//     console.log("Second: " + validationState)
-//
-// }
-//
-// const addConfiguration = () => {
-//     validateConfiguration()
-//     console.log(validationState)
-//
-//     if (validationState){
-//         console.log("Entrei aqui")
-//         const newConfiguration = {
-//             name: name,
-//             appId: appId,
-//             environment: environment,
-//             selected: false
-//         }
-//         props.create(newConfiguration)
-//
-//         console.log("E aqui")
-//
-//         clearValues()
-//         setValidationState(false)
-//     }
-// }

@@ -4,11 +4,15 @@ import { MainScreen } from './sections/MainScreen'
 import { CustomPanel } from './sections/CustomPanel'
 
 function App() {
-  const [selectedConfig, setSelectedConfig] = useState({name:'', appId:'', environment:''})
+    const [selectedConfig, setSelectedConfig] = useState({name:'default', appId:'', environment:''});
+
 
   return (
     <div className="App">
-      <CustomPanel selectedConfig={setSelectedConfig}/>
+      <CustomPanel
+          selectedConfig={selectedConfig}
+          setSelectedConfig={setSelectedConfig}
+      />
       <MainScreen selectedConfig={selectedConfig}/>
     </div>
   );
